@@ -3,10 +3,9 @@
 #include<math.h>
 #include<time.h>
 
-#define PI 3.1415926535f
+#define PI 3.141592f
 
 int r_calc(double place_x, double place_y){
- puts("start r_clc");
  if(sqrt(pow(place_x,2) + pow(place_y,2)) <= 100){
 	return 1;
  }else{
@@ -14,58 +13,48 @@ int r_calc(double place_x, double place_y){
  }
 }
 
- double plc_xy(int N){
+double plc_xy(int N){
+ double place_x,place_y,X = 0;
+ int i;
+ for(i = 0; i < N; i++){
 
-     double place_x,place_y,X;
+    place_x = rand() % 101;
 
-     puts("start plc_xy");
-     for(int i = 0; i < N; i++){
-	printf("%d\n",i);
-	puts("calc place_x");
-    	place_x = rand() % 101;
-	puts("calc place_y");
-	place_y = rand() % 101;
-	puts("calc place ave");
-	X += r_calc(place_x, place_y);
-	printf("%f\n",X);
+    place_y = rand() % 101;
+
+    X += r_calc(place_x, place_y);
  }
-
  return (4 * X / N);
 }
 
 int main(void){
  int N = 1;
  int i,j;
+ int num = 10;
  double place_x, place_y;
  double ave,error;
- double max = 120, min = 80;
+ double max = 0.0005, min = 0;
+ double ans_s[num];
 
  srand((unsigned int)time(NULL));
- puts("start");
- printf("%d\n",N);
+
 
  do{
-    puts("set");
-    double ans_s[N];
+
     error = 0;
     ave = 0;
 
-    puts("calc ave");
-    for(j = 0; j < 10; j++){
+    for(j = 0; j < num; j++){
 	ans_s[j] = plc_xy(N);
 	ave += ans_s[j];
    }
-    puts("calc ave 2");
-    ave /= 10;
+    ave /= num;
 
-
-    puts("calc error");
-    for(j = 0; j < 10; j++){
+    for(j = 0; j < num; j++){
    	error += pow(ans_s[j] - ave,2);
-    }
+   }
 
-    puts("calc error 2");
-    error /= 10;
+    error /= num;
     printf("[N = %d]	answer ... %f	pie ... %f	error ... %f\n", N, ave, PI, error);
 
     N *= 10;
