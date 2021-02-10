@@ -2,12 +2,11 @@
 #include<stdlib.h>
 #include<time.h>
 
-int roll(int x, int y, int mode){
+int roll(int x, int y, int mode, int cn){
 
  int num,count;
  int x2 = x;
  int sum = 0,flg = 0,fc = 1;
- int cn = 10; //critical number
 
  srand((unsigned int)time(NULL));
  while(flg == 0){
@@ -39,7 +38,7 @@ int roll(int x, int y, int mode){
 
 int main(){
 
- int mode,x,y;
+ int mode,x,y,cn = 10;
  char d;
 
  puts("-----xdy-----\n x ... ダイスの個数\n y ... ダイスの面数\n-------------");
@@ -58,14 +57,17 @@ int main(){
         case 0:puts("xdyの形で入力してください");
                scanf("%*c%d %c %d",&x,&d,&y);
                break;
-        case 1:puts("xdの形で入力してください");
+        case 1:puts("クリティカル値を設定してください");
+               scanf("%d",&cn);
+               printf("クリティカル値 ... %d\n",cn);
+               puts("xdの形で入力してください");
                scanf("%*c%d %c",&x,&d);
                y = 10;
                break;
     }
 
     printf("%d面ダイスを%d個振ります\n",y,x);
-    printf("出目は%d\n",roll(x,y,mode));
+    printf("出目は%d\n",roll(x,y,mode,cn));
  }
  return 0;
 }
