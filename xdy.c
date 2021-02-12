@@ -58,7 +58,7 @@ int main(){
                scanf("%*c%d %c %d",&x,&d,&y);
                break;
         case 1:puts("クリティカル値を設定してください");
-               scanf("%d",&cn);
+               scanf("%*c%d",&cn);
                printf("クリティカル値 ... %d\n",cn);
                puts("xdの形で入力してください");
                scanf("%*c%d %c",&x,&d);
