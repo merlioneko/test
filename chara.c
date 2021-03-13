@@ -10,7 +10,7 @@ int roll(int d_sd, int d_num){
  sum = 0;
 
  for(int i = 0; i < d_num; i++){
-    num = rand() % d_sd;
+    num = (rand() % d_sd) + 1;
     sum += num;
  }
 
@@ -84,8 +84,6 @@ int main(void){
  int flg[skn], flg2;
  int n;
 
- 
-
 //message
  puts("how many person(s)?");
  scanf("%d",&n);
@@ -93,6 +91,7 @@ int main(void){
 
  srand((unsigned int)time(NULL));
  for(int i = 0; i < n; i++){
+
 
    struct CHR chr[n];
 
@@ -154,7 +153,6 @@ int main(void){
    }
    puts(" ");
 }
-
 
  return 0;
 }
