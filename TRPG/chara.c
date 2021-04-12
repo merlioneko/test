@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<time.h>
 
+#define VIRSION "0.0.1"
 
 int roll(int d_sd, int d_num){
 
@@ -35,20 +36,22 @@ void flgclear(int flg[], int skn){
 
 int main(void){
 
+ printf("////////////////////\n\n全自動CoCキャラシート作成機\n");
+ printf("ver.%s\n\n",VIRSION);
+ printf("///////////////////\n\n");
  srand((unsigned int)time(NULL));
 
  while(1){
-
 
    int skn = 58, point, pts;
    int flg[skn], flg2;
    int n;
 
 //message
-   puts("how many person(s)?");
+   printf("How many people(s) do you want? ... ");
    scanf("%d",&n);
-   printf("creat %d people(s)\n", n);
-
+   printf("Creat %d people(s).\n\n", n);
+   printf("////-----------------////\n\n");
    for(int i = 0; i < n; i++){
 
      struct CHR chr[n];
@@ -129,7 +132,9 @@ chr[i].DEX*2	,1		,25		,20		,25,
         }
      }
 
-     puts("---------***--------");
+     if(i > 0 && i < n){
+        puts("---------***--------");
+        }
      printf("number %d\n",chr[i].num);
      printf("STR %d	CON %d	SIZ %d\n",chr[i].STR, chr[i].CON, chr[i].SIZ);
      printf("DEX %d	APP %d	POW %d\n",chr[i].DEX, chr[i].APP, chr[i].POW);
@@ -144,6 +149,7 @@ chr[i].DEX*2	,1		,25		,20		,25,
      puts(" ");
   }
 
+  printf("////-----------------////\n\n\n");
 }
  return 0;
 }
