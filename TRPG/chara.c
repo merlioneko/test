@@ -2,8 +2,6 @@
 #include<stdlib.h>
 #include<time.h>
 
-#define VIRSION "0.0.1"
-
 int roll(int d_sd, int d_num){
 
  int num,sum;
@@ -34,10 +32,33 @@ void flgclear(int flg[], int skn){
  }
 }
 
+void DB_calc(int db){
+
+ printf("DB ");
+ if(db < 13)
+   puts("-1D6");
+
+ if(db >= 13 && db <= 16)
+   puts("-1D4");
+
+ if(db >= 17 && db <= 24)
+   puts("0");
+
+ if(db >= 25 && db <= 32)
+   puts("+1D4");
+
+ if(db >= 33 && db <= 40)
+   puts("+1D6");
+
+ if(db >= 41){
+   printf("+%dD6\n",(db - 41) / 16 + 2);
+ }
+}
+
 int main(void){
 
  printf("////////////////////\n\n全自動CoCキャラシート作成機\n");
- printf("ver.%s\n\n",VIRSION);
+ puts("by Merlioneko");
  printf("///////////////////\n\n");
  srand((unsigned int)time(NULL));
 
@@ -141,7 +162,8 @@ chr[i].DEX*2	,1		,25		,20		,25,
      printf("INT %d	EDU %d\n",chr[i].INT, chr[i].EDU);
      printf("HP %d	MP %d	SAN %d\n",chr[i].HP, chr[i].MP, chr[i].SAN);
      printf("幸運 %d   アイデア %d   知識 %d\n",chr[i].LUCK, chr[i].IDE, chr[i].KNW);
-     printf("趣味ポイント %d	職業ポイント %d\n",chr[i].HOBP, chr[i].JOBP);
+     DB_calc(chr[i].STR + chr[i].SIZ);
+//     printf("趣味ポイント %d	職業ポイント %d\n",chr[i].HOBP, chr[i].JOBP);
      puts("技能一覧");
      for(int j = 0; j < 8; j++){
         printf("	%s：%d(%d)\n",slist[ chr[i].FB[0][j] ], chr[i].FB[1][j], slist2[chr[i].FB[0][j]]);
