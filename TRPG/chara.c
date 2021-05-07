@@ -25,11 +25,11 @@ struct CHR{
  int FB[2][8];   //[0][] ... 技能番号 [1][] .... 数値
 };
 
-//flg初期化用
 void flgclear(int flg[], int skn){
- for(int i = 0; i < skn; i++){
-    flg[i] = 0;
- }
+
+ for(int i = 0; i < skn; i++)
+   flg[i] = 0;
+
 }
 
 void DB_calc(int db){
@@ -37,19 +37,14 @@ void DB_calc(int db){
  printf("DB ");
  if(db < 13)
    puts("-1D6");
-
  if(db >= 13 && db <= 16)
    puts("-1D4");
-
  if(db >= 17 && db <= 24)
-   puts("0");
-
+   puts("なし");
  if(db >= 25 && db <= 32)
    puts("+1D4");
-
  if(db >= 33 && db <= 40)
    puts("+1D6");
-
  if(db >= 41){
    printf("+%dD6\n",(db - 41) / 16 + 2);
  }
@@ -63,10 +58,14 @@ int main(void){
  srand((unsigned int)time(NULL));
 
  while(1){
-
    int skn = 58, point, pts;
    int flg[skn], flg2;
    int n;
+
+//
+ for(int i = 0; i < skn; i++){
+  
+ }
 
 //message
    printf("How many people(s) do you want? ... ");
@@ -74,9 +73,7 @@ int main(void){
    printf("Creat %d people(s).\n\n", n);
    printf("////-----------------////\n\n");
    for(int i = 0; i < n; i++){
-
      struct CHR chr[n];
-     flgclear(flg,skn);
 
      chr[i].num = i + 1;
      chr[i].STR = roll(6,3);
@@ -131,6 +128,8 @@ chr[i].DEX*2	,1		,25		,20		,25,
 5	,1		,25
 
 };
+
+     flgclear(flg,skn);
 
      for(int j = 0; j < 8; j++){
         flg2 = 0;
