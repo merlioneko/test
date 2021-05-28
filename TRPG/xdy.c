@@ -38,7 +38,7 @@ int roll(int x, int y, int mode, int cn){
 
 int main(){
 
- int mode,x,y,cn = 10;
+ int mode = 2,x,y,cn = 10;
  char d;
 
  puts("-----xdy-----\n x ... ダイスの個数\n y ... ダイスの面数\n-------------");
