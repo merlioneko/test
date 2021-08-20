@@ -2,36 +2,61 @@
 #include<stdlib.h>
 #include<time.h>
 
+int getMax(int *dices, int x){
+ int max;
+ max = dices[0];
+ for(int i = 1; i < x; i ++){
+   if(dices[i] > max)max = dices[i];
+ }
+ return max;
+}
+
 int roll(int x, int y, int mode, int cn){
 
- int num,count;
- int x2 = x;
- int sum = 0,flg = 0,fc = 1;
+ int num,x2,count2,dices[x];
+ int sum = 0, flg = 0, count = 1;
 
  srand((unsigned int)time(NULL));
- while(flg == 0){
-  count = 0;
-  if(mode == 1)
-     printf("////%d回目///\n",fc);
-  for(int i = 0; i < x2; i++){
-     num = rand() % y + 1;
-     printf("[%d個目] ... %d\n",i + 1,num);
-     sum += num;
-     if(mode == 1 && cn <= num){
-        count++;
-        puts("critical!");
-     }
-  }
-  if(mode == 0){
-     flg++;
-  }
-  if(mode == 1){
-     x2 = count;
-     fc++;
-     if(count == 0){
-       flg++;
-     }
-  }
+ if(mode == 0){
+    for(int i = 0; i < x; i ++){
+       num = rand() % y + 1;
+       printf("[%d回目] ... %d\n",i + 1, num);
+       sum += num;
+    }
+    flg++;
+ }
+
+ if(mode == 1){
+    x2 = x;
+    count2 = 1;
+    while(count != 0){
+       puts("");
+       printf("{");//描写文
+       count = 0;
+       for(int i = 0; i < x2; i++){
+          dices[i] = rand() % y + 1;
+ 
+         if(dices[i] >= cn){count++;}
+
+          printf("%d", dices[i]);//描写文
+
+          if(i < (x2-1)){printf(", ");}//描写文
+       }
+       puts("}");
+
+       num = getMax(dices,x2);
+       if(num >= cn){num = 10;}
+       printf("[%d回目] ... %d\n",count2, num);
+       sum += num;
+       x2 = count;
+       count2++;
+    }
+   flg++;
+ }
+
+ if(flg == 0){
+    puts("ERROR ... Wrong parameter \"mode\"");
+    return -1;
  }
  return sum;
 }
