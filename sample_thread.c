@@ -21,9 +21,19 @@ int main(){
 
 void func(int x){
         int i;
+<<<<<<< Updated upstream
         for(i = 0; i < 10000000; i++){
 		pthread_mutex_lock(&count_mutex);
                 count++;
 		pthread_mutex_unlock(&count_mutex);
+=======
+        for(i = 0; i < 10; i++){
+                printf("func(%d): %d\n", x, i);
+		switch(x){
+			case 1:usleep(100000);break;
+			case 2:usleep(200000);break;
+			default: puts("ERROR!!!");break;
+			}
+>>>>>>> Stashed changes
         }
 }

@@ -21,8 +21,8 @@ struct CHR{
  int HP; int MP; int SAN;
  int LUCK; int IDE; int KNW;
  int JOBP; int HOBP;
- int HG; int SM; int SG; int MG; int LI;
- int FB[2][8];   //[0][] ... 技能番号 [1][] .... 数値
+ int NOS;
+ int FB[2][100];   //[0][] ... 技能番号 [1][] .... 数値
 };
 
 void flgclear(int flg[], int skn){
@@ -35,19 +35,12 @@ void flgclear(int flg[], int skn){
 void DB_calc(int db){
 
  printf("DB ");
- if(db < 13)
-   puts("-1D6");
- if(db >= 13 && db <= 16)
-   puts("-1D4");
- if(db >= 17 && db <= 24)
-   puts("なし");
- if(db >= 25 && db <= 32)
-   puts("+1D4");
- if(db >= 33 && db <= 40)
-   puts("+1D6");
- if(db >= 41){
-   printf("+%dD6\n",(db - 41) / 16 + 2);
- }
+ if(db < 13)puts("-1D6");
+ if(db >= 13 && db <= 16)puts("-1D4");
+ if(db >= 17 && db <= 24)puts("なし");
+ if(db >= 25 && db <= 32)puts("+1D4");
+ if(db >= 33 && db <= 40)puts("+1D6");
+ if(db >= 41)printf("+%dD6\n",(db - 41) / 16 + 2);
 }
 
 int main(void){
@@ -92,6 +85,7 @@ int main(void){
      chr[i].KNW = chr[i].EDU * 5;
      chr[i].JOBP = chr[i].EDU * 20;
      chr[i].HOBP = chr[i].INT * 10;
+     chr[i].NOS = 8 + rand() % 5 ;
 
      char slist[][32] = {
 
@@ -104,9 +98,8 @@ int main(void){
 "化学"		,"乗馬"			,"追跡"		,"母国語"	,"組みつき",
 "鍵開け"	,"信用"			,"電気修理"	,"マーシャルアーツ","こぶし",
 "隠す"		,"心理学"		,"電気工学"	,"目星"		,"頭突き",
-"隠れる"	,"人類学"		,"天文学"	,"薬学",
-"機械修理"	,"水泳"			,"投擲",
-"聞き耳"	,"製作"			,"登攀",
+"隠れる"	,"人類学"		,"天文学"	,"薬学"         ,"機械修理",
+"水泳"	        ,"投擲"                 ,"聞き耳"	,"製作"		,"登攀",
 "芸術"		,"精神分析"		,"図書館"
 
 };
@@ -118,20 +111,19 @@ int main(void){
 20	,1		,1		,1		,30,
 30	,10		,5		,1		,15,
 5	,10		,1		,10		,25,
-chr[i].DEX*2	,1		,25		,20		,25,
-1	,5		,10		,chr[i].EDU*5		,25,
+chr[i].DEX*2,1		,25		,20		,25,
+1	,5		,10		,chr[i].EDU*5	,25,
 1	,15		,10		,1		,50,
 15	,5		,1		,25		,10,
-10	,1		,1		,1,
-20	,25		,25,
-25	,5		,40,
+10	,1		,1		,1              ,20,
+25	,25             ,25	        ,5		,40,
 5	,1		,25
 
 };
 
      flgclear(flg,skn);
 
-     for(int j = 0; j < 8; j++){
+     for(int j = 0; j < chr[i].NOS; j++){
         flg2 = 0;
         while(flg2 == 0){
            chr[i].FB[0][j] = rand() % skn;
@@ -145,13 +137,12 @@ chr[i].DEX*2	,1		,25		,20		,25,
 
      point = chr[i].HOBP + chr[i].JOBP;
      while(point > 0){
-        pts = rand() % 8;
+        pts = rand() % chr[i].NOS;
         if(chr[i].FB[1][pts] < 99){
            chr[i].FB[1][pts] ++;
            point --;
         }
      }
-
      if(i > 0 && i < n){
         puts("---------***--------");
         }
@@ -164,8 +155,11 @@ chr[i].DEX*2	,1		,25		,20		,25,
      DB_calc(chr[i].STR + chr[i].SIZ);
 //     printf("趣味ポイント %d	職業ポイント %d\n",chr[i].HOBP, chr[i].JOBP);
      puts("技能一覧");
-     for(int j = 0; j < 8; j++){
-        printf("	%s：%d(%d)\n",slist[ chr[i].FB[0][j] ], chr[i].FB[1][j], slist2[chr[i].FB[0][j]]);
+     for(int j = 0; j < chr[i].NOS; j++){
+        printf("%s：%d(%d)",slist[ chr[i].FB[0][j] ], chr[i].FB[1][j], slist2[chr[i].FB[0][j]]);
+        if(j == (chr[i].NOS -1))puts("");
+        else if((j % 3) != 2)printf("	,");
+        if((j % 3) == 2 && (j != chr[i].NOS -1))puts(",");
      }
      puts(" ");
   }
