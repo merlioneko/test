@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #include<time.h>
 
+#define version 0.1.0
+
 int roll(int d_sd, int d_num){
 
  int num,sum;
@@ -20,7 +22,7 @@ struct CHR{
  int INT; int EDU;
  int HP; int MP; int SAN;
  int LUCK; int IDE; int KNW;
- int JOBP; int HOBP;
+ int JOBP; int HOBP;//職業技能ポイント　趣味技能ポイント
  int NOS;
  int FB[2][100];   //[0][] ... 技能番号 [1][] .... 数値
 };
